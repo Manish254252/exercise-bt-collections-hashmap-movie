@@ -19,11 +19,11 @@ Declare the following private properties
 **MovieService Class has the following six methods** 
 
       +addKeyValuePairsToMap(Movie movie, Integer rating) : Set<Map.Entry<Movie, Integer>> 
-      +getHigherRatedMovieNames(Map movieMap) : List<String>
-      +getMovieNamesOfSpecificGenre(Map movieMap) : List<String>
-      +getMovieNamesReleasedAfterSpecificDateAndRatingLesserThanThree(Map movieMap, LocalDate releaseDate) : List<String>
-      +getSortedMovieListByReleaseDate(Map movieMap) : List<Movie>
-      +getSortedMovieListByRating(Map movieMap) : Map<Movie, Integer>
+      +getHigherRatedMovieNames(int rating) : List<String>
+      +getMovieNamesOfSpecificGenre(String genre) : List<String>
+      +getMovieNamesReleasedAfterSpecificDateAndRatingLesserThanThree(LocalDate releaseDate) : List<String>
+      +getSortedMovieListByReleaseDate() : List<Movie>
+      +getSortedMovieListByRating() : Map<Movie, Integer>
 
 - Follow the comments to complete the business logic for all six methods
 
