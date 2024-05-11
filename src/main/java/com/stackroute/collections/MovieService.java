@@ -3,53 +3,70 @@ package com.stackroute.collections;
 import java.time.LocalDate;
 import java.util.*;
 
-/*
-This class contains a property called movieMap of type Map
-This class contains methods for adding key-value pairs of Movie and its rating to HashMap and
-various methods for accessing the keys and values based on some conditions
- */
 public class MovieService {
 
+    // Property to store movieMap
+    private final Map<Movie, Integer> movieMap;
+
     /**
-     * Constructor to create movieMap as an empty  LinkedHashMap object
+     * Constructor to create movieMap as an empty LinkedHashMap object
      */
     public MovieService() {
+        this.movieMap = new LinkedHashMap<>();
     }
 
     /*
     Returns the movieMap object
      */
     public Map<Movie, Integer> getMovieMap() {
-        return null;
+        return movieMap;
     }
 
     /*
     Add key-value pairs of Movie-Integer type and returns Set of Map.Entry
      */
     public Set<Map.Entry<Movie, Integer>> addKeyValuePairsToMap(Movie movie, Integer rating) {
-        return null;
+        movieMap.put(movie, rating);
+        return movieMap.entrySet();
     }
 
     /*
     Return Set of movie names having rating greater than or equal to given rating
      */
     public List<String> getHigherRatedMovieNames(int rating) {
-        return null;
+        List<String> higherRatedMovies = new ArrayList<>();
+        for (Map.Entry<Movie, Integer> entry : movieMap.entrySet()) {
+            if (entry.getValue() >= rating) {
+                higherRatedMovies.add(entry.getKey().getMovieName());
+            }
+        }
+        return higherRatedMovies;
     }
 
     /*
     Return Set of movie names belonging to specific genre
      */
     public List<String> getMovieNamesOfSpecificGenre(String genre) {
-        return null;
+        List<String> genreMovies = new ArrayList<>();
+        for (Movie movie : movieMap.keySet()) {
+            if (movie.getGenre().equalsIgnoreCase(genre)) {
+                genreMovies.add(movie.getMovieName());
+            }
+        }
+        return genreMovies;
     }
 
-   /*
-   Return Set of movie names which are released after Specific releaseDate and having rating less than or equal to 3
+    /*
+    Return Set of movie names which are released after Specific releaseDate and having rating less than or equal to 3
     */
-
     public List<String> getMovieNamesReleasedAfterSpecificDateAndRatingLesserThanThree(LocalDate releaseDate) {
-        return null;
+        List<String> moviesReleasedAfterDate = new ArrayList<>();
+        for (Map.Entry<Movie, Integer> entry : movieMap.entrySet()) {
+            if (entry.getKey().getReleaseDate().isAfter(releaseDate) && entry.getValue() <= 3) {
+                moviesReleasedAfterDate.add(entry.getKey().getMovieName());
+            }
+        }
+        return moviesReleasedAfterDate;
     }
 
     /*
@@ -57,7 +74,11 @@ public class MovieService {
     Hint: Use TreeMap
      */
     public List<Movie> getSortedMovieListByReleaseDate() {
-        return null;
+        Map<LocalDate, Movie> sortedMap = new TreeMap<>();
+        for (Map.Entry<Movie, Integer> entry : movieMap.entrySet()) {
+            sortedMap.put(entry.getKey().getReleaseDate(), entry.getKey());
+        }
+        return new ArrayList<>(sortedMap.values());
     }
 
     /*
@@ -65,6 +86,12 @@ public class MovieService {
    Hint: Use Comparator and LinkedHashMap
     */
     public Map<Movie, Integer> getSortedMovieListByRating() {
-        return null;
+        List<Map.Entry<Movie, Integer>> movieList = new LinkedList<>(movieMap.entrySet());
+        movieList.sort(Map.Entry.comparingByValue());
+        Map<Movie, Integer> sortedMap = new LinkedHashMap<>();
+        for (Map.Entry<Movie, Integer> entry : movieList) {
+            sortedMap.put(entry.getKey(), entry.getValue());
+        }
+        return sortedMap;
     }
 }
